@@ -2,7 +2,7 @@ modded class MissionServer {
   ref Recruit_Groups m_RecruitSettings;
 
   override void InvokeOnConnect(PlayerBase player, PlayerIdentity identity) {
-
+    bool s_found = false;
     eAIGroup playerGroupb = player.GetGroup();
     if(!playerGroupb) playerGroupb = eAIGroup.GetGroupByLeader(player);
 
@@ -14,11 +14,12 @@ modded class MissionServer {
         if (factionb) {
           Print(player.GetIdentity().GetName() + " Set to faction: " + factionb.ToString());
           playerGroupb.SetFaction(factionb);
+          s_found = true;
         }
       } else {
-        Print("No Config for :" + player.GetIdentity().GetName() + " found.");
       }
     }
+    if (!s_found) Print("No Config for :" + player.GetIdentity().GetName() + " found.");
     super.InvokeOnConnect(player, identity);
   }
 };
