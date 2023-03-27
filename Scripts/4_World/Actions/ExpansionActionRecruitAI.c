@@ -1,5 +1,4 @@
 modded class ExpansionActionRecruitAI {
-  ref Recruit_Groups m_RecruitSettings;
 
   override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item) {
 		eAIBase tAI;
@@ -27,9 +26,8 @@ modded class ExpansionActionRecruitAI {
       return false;
 
     //if match allow
-    GetRecruitSettings().PullRef(m_RecruitSettings);
-    if (m_RecruitSettings != NULL) {
-      foreach(string fName: m_RecruitSettings.RecruitFactions) {
+    if (player.Allowed_Factions() != NULL) {
+      foreach(string fName: player.Allowed_Factions()) {
         if (fName == tAI.GetGroup().GetFaction().GetName()) {
           tAI.GetGroup().ClearWaypoints();
           return true;
